@@ -134,7 +134,7 @@ class SignUpPage extends StatelessWidget {
                     } else {
                       _state.isSubmitted(false);
 
-                      _state.isLoading(false);
+                      _state.isLoading(true);
 
                       _accountC
                           .signUp(
@@ -147,8 +147,10 @@ class SignUpPage extends StatelessWidget {
 
                           Get.snackbar("Opps...", value.error.toString());
                         } else {
+                          _state.isLoading(false);
+
                           _accountC.user.value = value.user!;
-                          Get.off(MyFeedPage());
+                          Get.off(SignInPage());
                         }
                       });
                     }
