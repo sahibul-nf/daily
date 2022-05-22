@@ -21,6 +21,8 @@ class ArticleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 320,
+      height: 430,
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 10,
@@ -41,15 +43,20 @@ class ArticleCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(36),
-                child: CachedNetworkImage(
-                  imageUrl: logoUrl,
-                  width: 36,
-                ),
+                child: logoUrl == ""
+                    ? Image.asset("assets/image64.png")
+                    : CachedNetworkImage(
+                        placeholder: (context, url) =>
+                            Image.asset("assets/image64.png"),
+                        imageUrl: logoUrl,
+                        width: 36,
+                      ),
               ),
               const SizedBox(width: 10),
               Text(
                 author,
                 style: AppTextStyle.small,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -57,8 +64,10 @@ class ArticleCard extends StatelessWidget {
           Text(
             title,
             style: AppTextStyle.bigTitle,
+            maxLines: 2,
           ),
-          const SizedBox(height: 16),
+          // const SizedBox(height: 16),
+          const Spacer(),
           Text(
             pubDate,
             style: AppTextStyle.small,
@@ -96,6 +105,7 @@ class ArticleCard extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(width: 10),
               IconButton(
                 padding: const EdgeInsets.all(0),
                 onPressed: () {},
